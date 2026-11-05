@@ -1,1 +1,7 @@
-<p>gallery works!</p>
+@if (artwork(); as a) {
+  <img [src]="a.image" [alt]="a.title" class="img-fluid" style="max-height: 70vh" />
+  <h1 class="h3 mt-3">{{ a.title }}</h1>
+  <p class="text-body-secondary">{{ a.year }} · {{ a.technique }} · {{ a.dimensions }}</p>
+} @else {
+  <p>Quadro non trovato.</p>
+}

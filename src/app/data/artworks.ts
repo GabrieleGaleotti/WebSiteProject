@@ -7,7 +7,7 @@ export const ARTWORKS: Artwork[] = [
     year: 2023,
     technique: 'Olio su tela',
     dimensions: '50 x 70 cm',
-    image: '/artworks/quadro-1.jpg',
+    image: '/artworks/quadro-1.jpeg',
     description: 'Descrizione di prova.',
   },
   {
@@ -16,7 +16,7 @@ export const ARTWORKS: Artwork[] = [
     year: 2022,
     technique: 'Acrilico su tela',
     dimensions: '40 x 40 cm',
-    image: '/artworks/quadro-2.jpg',
+    image: '/artworks/quadro-2.jpeg',
   },
   {
     id: 3,

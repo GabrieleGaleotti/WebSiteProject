@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { ArtworkService } from '../../core/services/artwork.service';
 
 @Component({
-  imports: [],
   selector: 'app-gallery',
-  styleUrl: './gallery.css',
+  imports: [],
   templateUrl: './gallery.html',
+  styleUrl: './gallery.css',
 })
-export class Gallery {}
+export class Gallery {
+  private artworkService = inject(ArtworkService);
+
+  id = input.required<string>();
+
+  artwork = computed(() => this.artworkService.getById(Number(this.id())));
+}
