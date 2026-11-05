@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== Palette del sito ===== */
+:root {
+  --sito-bg: #f4f1ec;
+  --sito-surface: #fbf9f6;
+  --sito-ink: #2a2826;
+  --sito-muted: #7a746c;
+  --sito-line: #ddd7ce;
+  --sito-accent: #8b6f5a;
+
+  /* ===== Variabili Bootstrap ridefinite ===== */
+  --bs-body-bg: var(--sito-bg);
+  --bs-body-color: var(--sito-ink);
+  --bs-body-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --bs-heading-color: var(--sito-ink);
+  --bs-secondary-color: var(--sito-muted);
+  --bs-border-color: var(--sito-line);
+
+  /* I link usano la versione "rgb" del colore */
+  --bs-link-color-rgb: 139, 111, 90;
+  --bs-link-hover-color-rgb: 42, 40, 38;
+}
+
+/* ===== Tipografia ===== */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  --bs-navbar-color: var(--sito-muted);
+  --bs-navbar-hover-color: var(--sito-ink);
+  --bs-navbar-active-color: var(--sito-ink);
+  --bs-navbar-brand-color: var(--sito-ink);
+  --bs-navbar-brand-hover-color: var(--sito-ink);
+  background-color: var(--sito-surface);
+  border-bottom: 1px solid var(--sito-line);
+}
+
+/* ===== Card ===== */
+.card {
+  --bs-card-bg: var(--sito-surface);
+  --bs-card-border-color: var(--sito-line);
+}
