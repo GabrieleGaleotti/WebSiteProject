@@ -1,5 +1,8 @@
 @if (artwork(); as a) {
-  <section class="scena" (pointerdown)="onPointerDown($event)" (pointerup)="onPointerUp($event)">
+  <section class="scena"
+   (pointerdown)="onPointerDown($event)"
+    (pointerup)="onPointerUp($event)"
+    (pointermove)="onPointerMove($event)">
     <img [src]="a.image" [alt]="a.title" class="opera" draggable="false" />
 
     <div class="didascalia">

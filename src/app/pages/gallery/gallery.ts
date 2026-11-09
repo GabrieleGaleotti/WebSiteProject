@@ -1,4 +1,4 @@
-import { Component, HostListener, computed, effect, inject, input } from '@angular/core';
+import { Component, OnDestroy, HostListener, computed, effect, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArtworkService } from '../../core/services/artwork.service';
 
@@ -8,7 +8,7 @@ import { ArtworkService } from '../../core/services/artwork.service';
   templateUrl: './gallery.html',
   styleUrl: './gallery.css',
 })
-export class Gallery {
+export class Gallery implements OnDestroy{
   private artworkService = inject(ArtworkService);
   private router = inject(Router);
 
@@ -73,5 +73,43 @@ export class Gallery {
     if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
     if (dx < 0) this.avanti();
     else this.indietro();
+  }
+    // ---- Luce che segue il cursore ----
+  private luce = { x: 0, y: 0, tx: 0, ty: 0, avviata: false };
+  private frame = 0;
+  private riduciMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  onPointerMove(e: PointerEvent) {
+    if (e.pointerType !== 'mouse') return;
+    const scena = e.currentTarget as HTMLElement;
+    const r = scena.getBoundingClientRect();
+    const l = this.luce;
+    l.tx = e.clientX - r.left;
+    l.ty = e.clientY - r.top;
+    if (!l.avviata) {
+      // parte dalla posizione iniziale del CSS (30% / 25%)
+      l.x = r.width * 0.3;
+      l.y = r.height * 0.25;
+      l.avviata = true;
+    }
+    if (!this.frame) this.anima(scena);
+  }
+
+  private anima(scena: HTMLElement) {
+    const l = this.luce;
+    const k = this.riduciMovimento ? 1 : 0.1;
+    l.x += (l.tx - l.x) * k;
+    l.y += (l.ty - l.y) * k;
+    scena.style.setProperty('--x', `${l.x}px`);
+    scena.style.setProperty('--y', `${l.y}px`);
+    if (Math.abs(l.tx - l.x) > 0.5 || Math.abs(l.ty - l.y) > 0.5) {
+      this.frame = requestAnimationFrame(() => this.anima(scena));
+    } else {
+      this.frame = 0;
+    }
+  }
+
+  ngOnDestroy() {
+    cancelAnimationFrame(this.frame);
   }
 }

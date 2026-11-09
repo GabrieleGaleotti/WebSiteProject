@@ -2,6 +2,7 @@
   display: block;
 }
 
+/* ===== La scena: tela a schermo intero ===== */
 .scena {
   min-height: 100dvh;
   display: grid;
@@ -10,6 +11,12 @@
   gap: clamp(1.5rem, 5vw, 5rem);
   padding: 4rem clamp(1.5rem, 6vw, 6rem);
   touch-action: pan-y;
+
+  /* Posizione della luce (aggiornata da gallery.ts quando muovi il mouse) */
+  position: relative;
+  isolation: isolate;
+  --x: 30%;
+  --y: 25%;
 
   /* La tela: lampada, vignettatura, pieghe e trama */
   background-color: #efede7;
@@ -23,6 +30,33 @@
   background-blend-mode: normal, normal, multiply, normal;
 }
 
+/* Alone caldo della lampada */
+.scena::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 30rem at var(--x) var(--y),
+    rgba(255, 250, 240, 0.75),
+    transparent 70%
+  );
+}
+
+/* Trama del tessuto, visibile solo dove arriva la luce */
+.scena::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url('/textures/tela-luce.png') 0 0 / 480px 480px repeat;
+  -webkit-mask-image: radial-gradient(circle 26rem at var(--x) var(--y), #000, transparent 70%);
+  mask-image: radial-gradient(circle 26rem at var(--x) var(--y), #000, transparent 70%);
+}
+
+/* ===== Il quadro ===== */
 .opera {
   justify-self: center;
   max-width: 100%;
@@ -36,6 +70,7 @@
     0 18px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* ===== Didascalia ===== */
 .didascalia {
   max-width: 28rem;
   color: var(--sito-ink);
@@ -59,7 +94,7 @@
   line-height: 1.7;
 }
 
-/* Frecce ai bordi della finestra, a metà altezza */
+/* ===== Frecce ai bordi della finestra, a metà altezza ===== */
 .freccia {
   position: fixed;
   top: 50%;
@@ -69,6 +104,7 @@
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
+  padding: 0;
   border: 0;
   border-radius: 50%;
   background: transparent;
@@ -90,7 +126,7 @@
   outline-offset: 2px;
 }
 
-/* Contatore in basso al centro */
+/* ===== Contatore in basso al centro ===== */
 .contatore {
   position: fixed;
   bottom: 1.25rem;
@@ -100,26 +136,35 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Telefono e tablet verticale: quadro sopra, testo sotto */
+/* ===== Telefono e tablet verticale: quadro sopra, testo sotto,
+   frecce in basso ai lati del contatore ===== */
 @media (max-width: 991.98px) {
   .scena {
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
+    padding-bottom: 6rem; /* spazio per la barra dei comandi in basso */
   }
 
   .opera {
     max-height: 62dvh;
   }
 
-  .freccia {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: rgba(251, 249, 246, 0.7);
-  }
-
   .contatore {
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
+    line-height: 1.5;
     background: rgba(251, 249, 246, 0.75);
   }
+
+  .freccia {
+    top: auto;
+    bottom: 1rem;      /* centrata in altezza con il contatore */
+    transform: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(251, 249, 246, 0.75);
+  }
+
+  .freccia-sx { left: calc(50% - 6rem); }
+  .freccia-dx { right: calc(50% - 6rem); }
 }
