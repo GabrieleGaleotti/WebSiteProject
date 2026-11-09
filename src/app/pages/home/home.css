@@ -1,0 +1,64 @@
+:host {
+  display: block;
+}
+
+/* ===== La parete: tela a schermo intero, più tranquilla di quella della galleria ===== */
+.parete {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.25rem, 3dvh, 2.25rem);
+  padding-top: calc(var(--navbar-h, 4.5rem) + 1rem);
+  padding-bottom: 2rem;
+
+  background-color: #efede7;
+  background-image:
+    radial-gradient(ellipse at center, transparent 55%, rgba(60, 55, 45, 0.18) 100%),
+    url('/textures/tela-trama.jpg');
+  background-size: 100% 100%, 480px 480px;
+  background-repeat: no-repeat, repeat;
+}
+
+/* ===== Titolo ===== */
+.intro {
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+  color: var(--sito-ink);
+}
+
+.intro h1 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.intro p {
+  margin: 0;
+  color: #5f5951;
+}
+
+/* ===== La fila di quadri, scorrevole in orizzontale ===== */
+.fila {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin: 0;
+  list-style: none;
+
+  /* lo spazio ai lati sta DENTRO la fila, così i quadri scorrono fino al bordo dello schermo */
+  padding: 1rem clamp(1.5rem, 6vw, 6rem) 2.5rem;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: clamp(1.5rem, 6vw, 6rem);
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(42, 40, 38, 0.3) transparent;
+}
+
+.fila li {
+  flex: none;
+  scroll-snap-align: start;
+}

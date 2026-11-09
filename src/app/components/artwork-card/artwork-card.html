@@ -1,17 +1,9 @@
-<article class="card h-100 shadow-sm">
-  <img
-    [src]="artwork().image"
-    [alt]="artwork().title"
-    class="card-img-top"
-    loading="lazy"
-  />
-  <div class="card-body">
-    <h2 class="card-title h5">{{ artwork().title }}</h2>
-    <p class="card-text text-body-secondary mb-1">
-      {{ artwork().year }} · {{ artwork().technique }}
-    </p>
-    <p class="card-text small text-body-secondary mb-0">
-      {{ artwork().dimensions }}
-    </p>
+<a class="card-opera" [routerLink]="['/gallery', artwork().id]">
+  <div class="cornice">
+    <img [src]="artwork().image" [alt]="artwork().title" draggable="false" />
   </div>
-</article>
+  <p class="targhetta">
+    <span class="titolo">{{ artwork().title }}</span>
+    <span class="anno">{{ artwork().year }}</span>
+  </p>
+</a>

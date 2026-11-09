@@ -1,4 +1,14 @@
-<div class="container pagina">
-  <h1 class="h3 mb-4">Opere</h1>
-  
+<div class="parete">
+  <header class="intro">
+    <h1>Opere</h1>
+    <p>Scorri la parete e scegli un quadro per entrare in galleria.</p>
+  </header>
+
+  <ul class="fila">
+    @for (a of artworks; track a.id) {
+      <li>
+        <app-artwork-card [artwork]="a" />
+      </li>
+    }
+  </ul>
 </div>
