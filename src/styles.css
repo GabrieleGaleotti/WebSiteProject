@@ -6,6 +6,7 @@
   --sito-muted: #7a746c;
   --sito-line: #ddd7ce;
   --sito-accent: #8b6f5a;
+  --navbar-h: 4.5rem;
 
   /* ===== Variabili Bootstrap ridefinite ===== */
   --bs-body-bg: var(--sito-bg);
@@ -37,10 +38,35 @@ h1, h2, h3, h4, h5, h6 {
   --bs-navbar-active-color: var(--sito-ink);
   --bs-navbar-brand-color: var(--sito-ink);
   --bs-navbar-brand-hover-color: var(--sito-ink);
-  background-color: var(--sito-surface);
-  border-bottom: 1px solid var(--sito-line);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  min-height: var(--navbar-h);
+  background: transparent;
+  border: 0;
 }
 
+/* In galleria: link un po' più morbidi, leggibili sulla tela */
+.navbar.sulla-tela {
+  --bs-navbar-color: #6d675f;
+}
+
+/* Telefono: il menu aperto ha un fondo, altrimenti il testo si perde sul quadro */
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    background: rgba(251, 249, 246, 0.94);
+    border-radius: 0.75rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
+/* Pagine normali (home, biografia): spazio sotto la navbar fissa */
+.pagina {
+  padding-top: calc(var(--navbar-h) + 2rem);
+  padding-bottom: 3rem;
+}
 /* ===== Card ===== */
 .card {
   --bs-card-bg: var(--sito-surface);

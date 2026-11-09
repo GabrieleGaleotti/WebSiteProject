@@ -1,7 +1,19 @@
 @if (artwork(); as a) {
-  <img [src]="a.image" [alt]="a.title" class="img-fluid" style="max-height: 70vh" />
-  <h1 class="h3 mt-3">{{ a.title }}</h1>
-  <p class="text-body-secondary">{{ a.year }} · {{ a.technique }} · {{ a.dimensions }}</p>
+  <section class="scena">
+    <img [src]="a.image" [alt]="a.title" class="opera" />
+
+    <div class="didascalia">
+      <h1>{{ a.title }}</h1>
+      <p class="dati">
+        {{ a.technique }}<br />
+        {{ a.dimensions }}<br />
+        {{ a.year }}
+      </p>
+      @if (a.description) {
+        <p class="testo">{{ a.description }}</p>
+      }
+    </div>
+  </section>
 } @else {
-  <p>Quadro non trovato.</p>
+  <p class="pagina container">Quadro non trovato.</p>
 }
