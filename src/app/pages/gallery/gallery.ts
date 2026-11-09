@@ -8,7 +8,7 @@ import { ArtworkService } from '../../core/services/artwork.service';
   templateUrl: './gallery.html',
   styleUrl: './gallery.css',
 })
-export class Gallery implements OnDestroy{
+export class Gallery implements OnDestroy {
   private artworkService = inject(ArtworkService);
   private router = inject(Router);
 
@@ -34,18 +34,13 @@ export class Gallery implements OnDestroy{
     });
   }
 
+  // La direzione dell'animazione la calcola core/direzione-transizione.ts
   avanti() {
-    this.vai(this.nextId(), 'avanti');
+    this.router.navigate(['/gallery', this.nextId()]);
   }
 
   indietro() {
-    this.vai(this.prevId(), 'indietro');
-  }
-
-  private vai(id: number, direzione: 'avanti' | 'indietro') {
-    // Il CSS legge questo attributo per scegliere da che lato scivola il quadro
-    document.documentElement.dataset['direzione'] = direzione;
-    this.router.navigate(['/gallery', id]);
+    this.router.navigate(['/gallery', this.prevId()]);
   }
 
   // ---- Tastiera ----
@@ -74,7 +69,8 @@ export class Gallery implements OnDestroy{
     if (dx < 0) this.avanti();
     else this.indietro();
   }
-    // ---- Luce che segue il cursore ----
+
+  // ---- Luce che segue il cursore ----
   private luce = { x: 0, y: 0, tx: 0, ty: 0, avviata: false };
   private frame = 0;
   private riduciMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
