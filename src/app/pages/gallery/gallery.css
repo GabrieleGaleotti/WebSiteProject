@@ -8,7 +8,9 @@
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(1.5rem, 5vw, 5rem);
-  padding: 4rem clamp(1.5rem, 6vw, 6rem) 2rem;
+  padding: 4rem clamp(1.5rem, 6vw, 6rem);
+  touch-action: pan-y;
+
   /* La tela: lampada, vignettatura, pieghe e trama */
   background-color: #efede7;
   background-image:
@@ -24,9 +26,11 @@
 .opera {
   justify-self: center;
   max-width: 100%;
-  max-height: calc(100dvh - 7rem);
+  max-height: calc(100dvh - 8rem);
   width: auto;
   height: auto;
+  view-transition-name: opera;
+  user-select: none;
   box-shadow:
     0 2px 3px rgba(0, 0, 0, 0.25),
     0 18px 40px rgba(0, 0, 0, 0.3);
@@ -35,6 +39,7 @@
 .didascalia {
   max-width: 28rem;
   color: var(--sito-ink);
+  view-transition-name: didascalia;
 }
 
 .didascalia h1 {
@@ -54,13 +59,67 @@
   line-height: 1.7;
 }
 
+/* Frecce ai bordi della finestra, a metà altezza */
+.freccia {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #6d675f;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.freccia-sx { left: clamp(0.5rem, 2vw, 2rem); }
+.freccia-dx { right: clamp(0.5rem, 2vw, 2rem); }
+
+.freccia:hover {
+  color: var(--sito-ink);
+  background: rgba(42, 40, 38, 0.06);
+}
+
+.freccia:focus-visible {
+  outline: 2px solid var(--sito-accent);
+  outline-offset: 2px;
+}
+
+/* Contatore in basso al centro */
+.contatore {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #6d675f;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Telefono e tablet verticale: quadro sopra, testo sotto */
 @media (max-width: 991.98px) {
   .scena {
     grid-template-columns: minmax(0, 1fr);
     align-content: center;
   }
+
   .opera {
     max-height: 62dvh;
+  }
+
+  .freccia {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(251, 249, 246, 0.7);
+  }
+
+  .contatore {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(251, 249, 246, 0.75);
   }
 }
